@@ -17,7 +17,7 @@ This plugin is created to help people temporary without having to add
   Usage: hce reload  
   Description: reloads the huskycrates extension config and huskycrates crates  
   Permission: huskycratesextension.admin.reload  
-  Note: will also execute /hc reload  
+  Note: will also be executed when /hc reload is executed  
   
 #### rightclick  
   Usage: hce rightclick \<add/remove\> \<Crate\>  
