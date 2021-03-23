@@ -41,10 +41,14 @@ public class ConvertCommand implements CommandExecutor {
 
 		if (src instanceof Player) {
 			Player player = (Player) src;
+			if(!player.getItemInHand(HandTypes.MAIN_HAND).isPresent()) {
+				player.sendMessage(Text.of(TextColors.RED, "Your hand can not be empty"));
+				return CommandResult.success();
+			}
 			ItemStack item = player.getItemInHand(HandTypes.MAIN_HAND).get();
 			Map<String, Integer> virtualBalance = HuskyCrates.registry.getVirtualKeyBalances(player.getUniqueId());
 
-			if (!k.isPresent() && !cr.isPresent()) {
+			if (!k.isPresent() && !cr.isPresent()) { //key to virtual
 				try {
 					Optional<Object> keyobject = item.toContainer().get(DataQuery.of("UnsafeData", "HCKEYID"));
 					String keyId = null;
@@ -60,12 +64,12 @@ public class ConvertCommand implements CommandExecutor {
 								player.setItemInHand(HandTypes.MAIN_HAND, ItemStack.empty());
 								player.sendMessage(Text.of(TextColors.GREEN,
 										String.format(
-												Messages.replaceText(Messages.convertToVirtualSuccess, null, amount2, null, player)
+												Messages.replaceText(Messages.convertToVirtualSuccess,HuskycratesExtension.registry.getStringWithoutColor( keyId.replace("LOCALKEY_", "")), amount2, null, player)
 
 										)));
 								HuskycratesExtension.instance.logger.info(String.format(
 										"%s has converted %d %s %s to virtual keys", player.getName(), amount2,
-										keyId.replace("LOCALKEY_", ""), amount2 != 1 ? "keys" : "key"));
+										HuskycratesExtension.registry.getStringWithoutColor( keyId.replace("LOCALKEY_", "")), amount2 != 1 ? "keys" : "key"));
 								return CommandResult.success();
 
 							} else {
@@ -97,30 +101,44 @@ public class ConvertCommand implements CommandExecutor {
 					return CommandResult.success();
 				}
 
-			} else {
+			} else { // virtual to key
 
 				key = cr.isPresent() ? cr.get().getLocalKey() : k.get();
-				HuskycratesExtension.instance.logger.info("amount: " + amount);
+				
+				
+				if (key == null) {
+					player.sendMessage(Text.of(TextColors.RED,"The key seems to be empty"));
+					return CommandResult.success();
+				}
 				if (amount < 0) {
 					src.sendMessage(Text.of(TextColors.RED, 
+							
 							Messages.convertToPhysicalNegative
 							));
 					return CommandResult.success();
 				}
 
 				if (virtualBalance.containsKey(key.getId())) {
-					if (virtualBalance.get(key.getId()) <= amount) {
-						HuskyCrates.registry.removeVirtualKeys(player.getUniqueId(), key.getId(), amount);
-						result = Util.getHotbarFirst(player.getInventory()).offer(key.getKeyItemStack(amount));
-						src.sendMessage(Text.of(TextColors.GREEN, 
-								Messages.replaceText(Messages.convertToPhysicalSuccess, key.getId(), amount, null, player)
-								));
-						HuskycratesExtension.instance.logger.error("%s converted %d %s %s", player.getName(), amount,
-								key.getId(), amount != 1 ? "keys" : "key");
-						return CommandResult.success();
+					if (virtualBalance.get(key.getId()) >= amount) { 
+						ItemStack stack = key.getKeyItemStack(amount);
+						if(player.getInventory().first().canFit(stack)) {
+							HuskyCrates.registry.removeVirtualKeys(player.getUniqueId(), key.getId(), amount);
+							result = Util.getHotbarFirst(player.getInventory()).offer(stack);
+							src.sendMessage(Text.of(TextColors.GREEN, 
+									Messages.replaceText(Messages.convertToPhysicalSuccess, HuskycratesExtension.registry.getStringWithoutColor( key.getId().replace("LOCALKEY_","")), amount, null, player)
+									));
+							HuskycratesExtension.instance.logger.error(String.format("%s converted %d %s %s", player.getName(), amount,
+									 HuskycratesExtension.registry.getStringWithoutColor( key.getId().replace("LOCALKEY_","")),  amount != 1 ? "keys" : "key")
+									);
+							return CommandResult.success();
+						}else {
+							player.sendMessage(Text.of(TextColors.RED,"You don't have eough space in your inventory to convert keys"));
+							return CommandResult.success();
+						}
+
 					}else {
 						player.sendMessage(Text.of(TextColors.RED,
-								Messages.replaceText(Messages.convertToPhysicalNotEnoughKeys, key.getId(), amount, null, player)
+								Messages.replaceText(Messages.convertToPhysicalNotEnoughKeys,  HuskycratesExtension.registry.getStringWithoutColor( key.getId().replace("LOCALKEY_","")), amount, null, player)
 								));
 						return CommandResult.success();
 
