@@ -71,9 +71,9 @@ The purpose of this plugin is to add certain features i would have liked to see 
   Permission: huskycratesextension.admin.random  
   
 ### bal
-  Usage: hce bal (\<Player\>)
-  Description: Show the balance of player's keys
-  Permissions: 
+  Usage: hce bal (\<Player\>)  
+  Description: Show the balance of player's keys  
+  Permissions:  
 - huskycrates.bal.base (to see own balance ) 
 - huskycratesextension.admin.checkbalanceothers (to see other players balances (can be used when the player offline))
 
