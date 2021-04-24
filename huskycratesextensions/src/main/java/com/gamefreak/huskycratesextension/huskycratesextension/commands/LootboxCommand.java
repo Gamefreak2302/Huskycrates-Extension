@@ -17,7 +17,6 @@ import org.spongepowered.api.text.format.TextColors;
 import com.codehusky.huskycrates.HuskyCrates;
 import com.codehusky.huskycrates.crate.virtual.Crate;
 import com.gamefreak.huskycratesextension.huskycratesextension.HuskycratesExtension;
-import com.gamefreak.huskycratesextension.huskycratesextension.config.Messages;
 import com.gamefreak.huskycratesextension.huskycratesextension.objects.views.LootboxView;
 
 public class LootboxCommand implements CommandExecutor {
@@ -66,7 +65,7 @@ public class LootboxCommand implements CommandExecutor {
 					return CommandResult.success();
 				} else {
 					player.sendMessage(Text.of(TextColors.RED,
-							Messages.replaceText(Messages.notEnoughKeys, crate.getId(), -1, null, player)));
+							"You don't have enough keys"));
 					return CommandResult.success();
 				}
 

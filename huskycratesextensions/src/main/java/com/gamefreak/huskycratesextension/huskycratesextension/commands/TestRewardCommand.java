@@ -21,7 +21,6 @@ import com.codehusky.huskyui.states.action.ActionType;
 import com.codehusky.huskyui.states.action.runnable.RunnableAction;
 import com.codehusky.huskyui.states.element.ActionableElement;
 import com.gamefreak.huskycratesextension.huskycratesextension.HuskycratesExtension;
-import com.gamefreak.huskycratesextension.huskycratesextension.config.Messages;
 
 public class TestRewardCommand implements CommandExecutor {
 
@@ -58,7 +57,7 @@ public class TestRewardCommand implements CommandExecutor {
 
 				if (HuskycratesExtension.registry.getUntestableCrates().contains(crate2)) {
 					player.sendMessage(Text.of(TextColors.RED,
-							Messages.replaceText(Messages.crateUntestable, crate.getId(), -1, null, player)));
+							"You can not test this crate"));
 					return CommandResult.success();
 				}
 				StateContainer container = new StateContainer();

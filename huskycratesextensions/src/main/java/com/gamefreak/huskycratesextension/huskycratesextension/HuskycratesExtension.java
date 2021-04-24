@@ -1,5 +1,11 @@
 package com.gamefreak.huskycratesextension.huskycratesextension;
 
+import static com.gamefreak.huskycratesextension.huskycratesextension.ServerStats.AUTHOR;
+import static com.gamefreak.huskycratesextension.huskycratesextension.ServerStats.DESCRIPTION;
+import static com.gamefreak.huskycratesextension.huskycratesextension.ServerStats.ID;
+import static com.gamefreak.huskycratesextension.huskycratesextension.ServerStats.NAME;
+import static com.gamefreak.huskycratesextension.huskycratesextension.ServerStats.VERSION;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -36,7 +42,6 @@ import com.gamefreak.huskycratesextension.huskycratesextension.commands.CommandR
 import com.gamefreak.huskycratesextension.huskycratesextension.config.ItemCommandConfig;
 import com.gamefreak.huskycratesextension.huskycratesextension.config.KeyConfig;
 import com.gamefreak.huskycratesextension.huskycratesextension.config.MemoryConfig;
-import com.gamefreak.huskycratesextension.huskycratesextension.config.Messages;
 import com.gamefreak.huskycratesextension.huskycratesextension.config.TestableConfig;
 import com.gamefreak.huskycratesextension.huskycratesextension.objects.CommandItem;
 import com.google.inject.Inject;
@@ -44,7 +49,6 @@ import com.google.inject.Inject;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-import static com.gamefreak.huskycratesextension.huskycratesextension.ServerStats.*;
 //Created by gamefreak_2302
 
 @Plugin(id = ID, name = NAME, version = VERSION, description = DESCRIPTION, authors = { AUTHOR
@@ -204,7 +208,6 @@ public class HuskycratesExtension {
 	private void readConfig() {
 
 		new KeyConfig();
-		new Messages();
 		new MemoryConfig();
 		new TestableConfig();
 		new ItemCommandConfig();
@@ -225,15 +228,17 @@ public class HuskycratesExtension {
 	 */
 	public void reloadConfig() {
 
-		logger.info("Config and crates have been reloaded");
 		registry.clearCrates();
 		try {
 			load();
+			readConfig();
+			logger.info("Config and crates have been reloaded");
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			logger.error("Could not load config files");
 		}
-		readConfig();
+		
 		
 
 	}
@@ -275,15 +280,10 @@ public class HuskycratesExtension {
 													crate.getName(), player.getLocation().toString()));
 								} else {
 									player.sendMessage(Text.of(TextColors.RED,
-//											"This key is a duplicate and can not be consumed!"
-											Messages.distanceOpenDuplicate));
+											"This key is marked as a duplicate and can not be consumed!"
+											));
 									logger.info(player.getName() + " tried to use a duplicated key!");
 								}
-							} else {
-								player.sendMessage(Text.of(TextColors.RED, String.format(
-//										"you can not open this crate from distance, please use this key on crate."
-//												+ "\nif you think this is wrong, please contact the server owner"
-										Messages.distanceOpenInvalidKey)));
 							}
 						}
 					}
@@ -337,8 +337,6 @@ public class HuskycratesExtension {
 				Player player = (Player) e.getSource();
 				if (player.hasPermission("huskycratesextension.reload"))
 					reloadConfig();
-			} else {
-				reloadConfig();
 			}
 		}
 	}
@@ -348,7 +346,10 @@ public class HuskycratesExtension {
 		if(e.getSource() instanceof Player) {
 //			Player player = (Player)e.getSource();
 			
-			ItemStackSnapshot item = e.getCause().getContext().get(EventContextKeys.USED_ITEM).get();
+			ItemStackSnapshot item = e.getCause().getContext().get(EventContextKeys.USED_ITEM).orElse(null);
+			if(item == null) {
+				return;
+			}
 			if(item.toContainer().get(DataQuery.of("UnsafeData","HCE_CommandItem")).isPresent()) {
 				e.setCancelled(true);
 			}
@@ -360,6 +361,12 @@ public class HuskycratesExtension {
 			if(item.toContainer().get(DataQuery.of("UnsafeData","HCKEYID")).isPresent()) {
 				e.setCancelled(true);
 			}
+			
+			
 		}
 	}
+
+	
+	
+
 }

@@ -19,7 +19,6 @@ import com.codehusky.huskycrates.crate.virtual.Crate;
 import com.codehusky.huskycrates.crate.virtual.Key;
 import com.gamefreak.huskycratesextension.huskycratesextension.HuskycratesExtension;
 import com.gamefreak.huskycratesextension.huskycratesextension.config.MemoryConfig;
-import com.gamefreak.huskycratesextension.huskycratesextension.config.Messages;
 import com.gamefreak.huskycratesextension.huskycratesextension.objects.views.MemoryView;
 
 public class MemoryCrateCommand implements CommandExecutor {
@@ -78,7 +77,7 @@ public class MemoryCrateCommand implements CommandExecutor {
 					return CommandResult.success();
 				} else {
 					player.sendMessage(Text.of(TextColors.RED,
-							Messages.replaceText(Messages.notEnoughKeys, crate.getId(), -1, null, player)));
+							"You don't have enough keys"));
 					return CommandResult.success();
 				}
 

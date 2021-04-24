@@ -3,7 +3,7 @@
 ## What is it? 
 
 Huskycrates extension is a plugin for minecraft which extends huskycrates using huskycrates and huskyui.  
-This plugin is created to help people temporary without having to add 
+The purpose of this plugin is to add certain features i would have liked to see and you might like aswell. 
 
 ## What does it contain? 
 
@@ -17,7 +17,7 @@ This plugin is created to help people temporary without having to add
   Usage: hce reload  
   Description: reloads the huskycrates extension config and huskycrates crates  
   Permission: huskycratesextension.admin.reload  
-  Note: will also be executed when /hc reload is executed  
+  Note: will also execute /hc reload  
   
 #### rightclick  
   Usage: hce rightclick \<add/remove\> \<Crate\>  
@@ -69,6 +69,14 @@ This plugin is created to help people temporary without having to add
   Usage: hce random \<Player\> \<CrateID\>  
   Description: takes a random reward and executes it.  
   Permission: huskycratesextension.admin.random  
+  
+### bal
+  Usage: hce bal (\<Player\>)
+  Description: Show the balance of player's keys
+  Permissions: 
+- huskycrates.bal.base (to see own balance ) 
+- huskycratesextension.admin.checkbalanceothers (to see other players balances (can be used when the player offline))
+
 
 ### Others:
 
@@ -83,14 +91,18 @@ This plugin is created to help people temporary without having to add
 #### Unplaceable
   Description: Makes huskycrates keys and item commands unplaceable 
 
-#### Customizable configs 
-   * Customize most messages    
+#### Customizable configs
+   * Customize most messages (remove)/change) 
    * Customize memory game  
       * How many chances  
       * Multiple prizes  
       * Which crates can play memory  
    * What crate can not be tested
    * Item command storage + edits
+
+### Interactable text  
+* When using /hce bal , on hover over text will print text to click to convert. on click will convert clicked key.  
+
 
 ## Notes
   * Beginner in writing plugins, so can't tell how good it is for server performance  

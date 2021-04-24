@@ -30,7 +30,6 @@ import com.codehusky.huskycrates.Util;
 import com.codehusky.huskycrates.crate.virtual.Item;
 import com.codehusky.huskycrates.exception.RewardDeliveryError;
 import com.gamefreak.huskycratesextension.huskycratesextension.config.KeyConfig;
-import com.gamefreak.huskycratesextension.huskycratesextension.config.Messages;
 import com.gamefreak.huskycratesextension.huskycratesextension.config.TestableConfig;
 import com.gamefreak.huskycratesextension.huskycratesextension.objects.CommandItem;
 import com.gamefreak.huskycratesextension.huskycratesextension.objects.Crate;
@@ -131,9 +130,10 @@ public class Registry {
 		boolean check = cooldownInteractEvent.get(player).isAfter(LocalDateTime.now());
 		if (check)
 			player.sendMessage(Text.of(TextColors.RED, String.format(
-//					"time untill next opening by right click: %s seconds",ChronoUnit.SECONDS.between(LocalDateTime.now(), cooldownInteractEvent.get(player))
-					Messages.replaceText(Messages.distanceOpenCooldown, (int) ChronoUnit.SECONDS
-							.between(LocalDateTime.now(), cooldownInteractEvent.get(player))))));
+					"time untill next opening by right click: %s seconds",ChronoUnit.SECONDS.between(LocalDateTime.now(), cooldownInteractEvent.get(player))
+//					Messages.replaceText(Messages.distanceOpenCooldown, (int) ChronoUnit.SECONDS
+//							.between(LocalDateTime.now(), cooldownInteractEvent.get(player)))
+					)));
 		return check;
 	}
 
@@ -459,6 +459,33 @@ public class Registry {
 				.replace("&r", "")
 
 				);
+	}
+	
+	public String getStringWithoutColor(String text) {
+		
+		return text
+				.replace("&0", "")
+				.replace("&1", "")
+				.replace("&2", "")
+				.replace("&3", "")
+				.replace("&4", "")
+				.replace("&5", "")
+				.replace("&6", "")
+				.replace("&7", "")
+				.replace("&8", "")
+				.replace("&9", "")
+				.replace("&a", "")
+				.replace("&b", "")
+				.replace("&c", "")
+				.replace("&d", "")
+				.replace("&e", "")
+				.replace("&f", "")
+				.replace("&o", "")
+				.replace("&m", "")
+				.replace("&n", "")
+				.replace("&l", "")
+				.replace("&k", "")
+				.replace("&r", "");
 	}
 
 

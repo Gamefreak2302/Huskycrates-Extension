@@ -16,7 +16,6 @@ import com.codehusky.huskycrates.HuskyCrates;
 import com.codehusky.huskycrates.crate.virtual.Crate;
 import com.codehusky.huskycrates.crate.virtual.Key;
 import com.gamefreak.huskycratesextension.huskycratesextension.HuskycratesExtension;
-import com.gamefreak.huskycratesextension.huskycratesextension.config.Messages;
 
 public class GiveVirtualKeyCommand implements CommandExecutor {
 
@@ -43,46 +42,56 @@ public class GiveVirtualKeyCommand implements CommandExecutor {
 //			String keyID = key.get().getId();
 			
 			if (key2==null) {
-				src.sendMessage(Text.of(TextColors.RED,
-						Messages.giveVirtualKeyEmptyKey));
+				src.sendMessage(Text.of(TextColors.RED, "Could not recognize key"));
 				return CommandResult.success();
 			}
 
-			String keyName = key2.getName();
 			String keyID = key2.getId();
 
-//			if (target.getName().equals(player.getName())) {
-//				src.sendMessage(Text.of(TextColors.RED,
-//						Messages.giveVirtualKeySelfTarget));
-//				return CommandResult.success();
-//			}
+			if (target.getName().equals(player.getName())) {
+				src.sendMessage(Text.of(TextColors.RED,
+						"You can't give yourself a virtual key"));
+				return CommandResult.success();
+			}
 
 			if (amount <= 0) {
 				src.sendMessage(Text.of(TextColors.RED,
-						Messages.giveVirtualKeyNegativeAmount
+						"You can not give less then 1 key"
 				));
 				return CommandResult.success();
 			}
 
 			Map<String, Integer> virtualBalance = HuskyCrates.registry.getVirtualKeyBalances(player.getUniqueId());
 
+			
 			if (virtualBalance == null) {
 				player.sendMessage(Text.of(TextColors.RED,
-						Messages.replaceText(Messages.giveVirtualKeyNotEnoughKey, "all", -1, target, player)));
+						"You don't have enough "+ key2.getName() + " keys"));
 				return CommandResult.success();
 			}
 			if (!virtualBalance.containsKey(keyID)) {
 				src.sendMessage(Text.of(TextColors.RED,
-						Messages.replaceText(Messages.giveVirtualKeyNotEnoughKey, keyName, -1, target, player)));
+						"You don't have enough "+ key2.getName() + " keys"));
 				return CommandResult.success();
+			}
+			
+			if(virtualBalance.get(keyID) == null) {
+				src.sendMessage(Text.of(TextColors.RED,
+						"You don't have enough "+ key2.getName() + " keys"));
+				return CommandResult.success();
+			}
+			
+			if(virtualBalance.get(keyID) < 0) {
+				while(virtualBalance.get(keyID) < 0) {
+					HuskyCrates.registry.addVirtualKeys(player.getUniqueId(), keyID, 1);
+				}
 			}
 
 			if (virtualBalance.get(keyID) < amount) {
-				src.sendMessage(Text.of(TextColors.RED, String.format(
+				
+				src.sendMessage(Text.of(TextColors.RED,
 
-						Messages.replaceText(Messages.giveVirtualKeyNotEnoughKey, keyName, amount, target, player)
-
-				)));
+					"You don't have enough "+ key2.getName() + " keys"));
 				return CommandResult.success();
 			}
 
@@ -92,9 +101,7 @@ public class GiveVirtualKeyCommand implements CommandExecutor {
 			HuskyCrates.registry.removeVirtualKeys(player.getUniqueId(), keyID, amount);
 			player.sendMessage(Text.of(TextColors.GREEN,
 
-					//"You send %amount %crate %keys to %target"
-					Messages.replaceText(Messages.giveVirtualKeySender, keyName, amount, target, player)
-
+					"You send "+amount + " " + key2.getName() + " to " + target.getName()
 			));
 			
 			/**
@@ -103,12 +110,11 @@ public class GiveVirtualKeyCommand implements CommandExecutor {
 			HuskyCrates.registry.addVirtualKeys(target.getUniqueId(), keyID, amount);
 			target.sendMessage(Text.of(TextColors.GREEN,
 
-					//You received %amount %crate %key from %player
-					Messages.replaceText(Messages.giveVirtualKeyReceiver, keyName, amount, target, player)
+					"You received " + amount + " " +  key2.getName() + " " + (amount!=1?"keys":"key") + " from " + player.getName()
+					//Messages.replaceText(Messages.giveVirtualKeyReceiver, keyName, amount, target, player)
 
 			));
 
-			HuskycratesExtension.instance.logger.info("");
 		} else {
 			src.sendMessage(Text.of(TextColors.RED, "This command can only be executed by a player"));
 		}

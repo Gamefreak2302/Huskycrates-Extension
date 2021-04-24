@@ -13,7 +13,6 @@ import org.spongepowered.api.text.format.TextColors;
 import com.codehusky.huskycrates.crate.virtual.Crate;
 import com.codehusky.huskycrates.crate.virtual.Key;
 import com.gamefreak.huskycratesextension.huskycratesextension.HuskycratesExtension;
-import com.gamefreak.huskycratesextension.huskycratesextension.config.Messages;
 
 
 
@@ -52,15 +51,9 @@ public class ManageRightClickCrateCommand implements CommandExecutor {
 			if(crate2 != null) {
 				HuskycratesExtension.registry.addCrateWithRightClick(crate2.getName());
 				src.sendMessage(Text.of(TextColors.GREEN,
-						Messages.manageRightClickAdd
+						"Key can now be consumed by right clicking"
 						));
 				HuskycratesExtension.instance.logger.info(String.format("%s has added %s to the rightclick whitelist", src.getName(),crate2.getName()));
-				return CommandResult.success();
-			}else if(key2 != null) {
-				HuskycratesExtension.registry.addCrateWithRightClick(key2.getName());
-				src.sendMessage(Text.of(TextColors.GREEN,
-						Messages.manageRightClickAdd
-						));				HuskycratesExtension.instance.logger.info(String.format("%s has added %s to the rightclick whitelist", src.getName(),key2.getName()));
 				return CommandResult.success();
 			}
 			
@@ -71,20 +64,14 @@ public class ManageRightClickCrateCommand implements CommandExecutor {
 				HuskycratesExtension.registry.removeCrateWithRightClick(crate2.getName());
 				HuskycratesExtension.instance.logger.info(String.format("%s has removed %s to the whitelist", src.getName(),crate2.getName()));
 				src.sendMessage(Text.of(TextColors.GREEN,
-						Messages.manageRightClickRemove
+						"Key can no longer be used from a distance"
 						));
 				return CommandResult.success();
-			}else if(key2 != null) {
-				HuskycratesExtension.registry.removeCrateWithRightClick(key2.getName());
-				HuskycratesExtension.instance.logger.info(String.format("%s has remove %s to the whitelist", src.getName(),key2.getName()));
-				src.sendMessage(Text.of(TextColors.GREEN,
-						Messages.manageRightClickRemove
-						));				return CommandResult.success();
 			}
 			break;
 		default:
 			src.sendMessage(Text.of(TextColors.RED,
-					Messages.manageRightClickInvalidOption
+					"Invalid option"
 					));
 			return CommandResult.success();
 		}

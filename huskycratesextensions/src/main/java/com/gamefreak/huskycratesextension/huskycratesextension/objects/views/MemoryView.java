@@ -21,7 +21,6 @@ import com.codehusky.huskyui.states.action.runnable.RunnableAction;
 import com.codehusky.huskyui.states.element.ActionableElement;
 import com.gamefreak.huskycratesextension.huskycratesextension.HuskycratesExtension;
 import com.gamefreak.huskycratesextension.huskycratesextension.config.MemoryConfig;
-import com.gamefreak.huskycratesextension.huskycratesextension.config.Messages;
 import com.gamefreak.huskycratesextension.huskycratesextension.objects.Crate;
 import com.gamefreak.huskycratesextension.huskycratesextension.objects.Slot;
 
@@ -157,7 +156,7 @@ public class MemoryView implements Consumer<Page> {
 			}
 
 			if (chances <= 0) {
-				player.sendMessage(Text.of(TextColors.RED, Messages.memoryOutOfMoves));
+				player.sendMessage(Text.of(TextColors.RED, "You ran out of chances"));
 				player.closeInventory();
 			}
 		} else {

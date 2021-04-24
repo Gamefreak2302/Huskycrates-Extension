@@ -126,6 +126,12 @@ public class CommandRegister {
 								GenericArguments.onlyOne(new CrateArgument(Text.of("crate"))))
 						.description(Text.of(TextColors.GOLD, "Give random slot from crate."))
 						.permission("huskycratesextension.admin.random").build(), "random")
+				
+				.child(CommandSpec.builder().executor(new Balance())
+						.arguments(GenericArguments.optional(GenericArguments.user(Text.of("player")))
+								)
+						.description(Text.of(TextColors.GOLD, "Check balance of other player"))
+						.permission("huskycrates.bal.base").build(), "bal","balance")
 				// insert more .child here
 				.build();
 

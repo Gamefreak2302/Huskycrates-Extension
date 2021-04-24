@@ -10,9 +10,9 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
+
 import com.codehusky.huskycrates.crate.virtual.Crate;
 import com.gamefreak.huskycratesextension.huskycratesextension.HuskycratesExtension;
-import com.gamefreak.huskycratesextension.huskycratesextension.config.Messages;
 import com.gamefreak.huskycratesextension.huskycratesextension.objects.Slot;
 
 public class TestAllRewardCommand implements CommandExecutor{
@@ -41,7 +41,7 @@ public class TestAllRewardCommand implements CommandExecutor{
 				crate2 = HuskycratesExtension.registry.getCrates().get(crate.getId().toLowerCase());
 
 				if(HuskycratesExtension.registry.getUntestableCrates().contains(crate2)) {
-					player.sendMessage(Text.of(TextColors.RED,Messages.replaceText(Messages.crateUntestable, crate.getId(), -1, null, player)));
+					player.sendMessage(Text.of(TextColors.RED,"You can not test this crate"));
 					return CommandResult.success();
 				}
 
