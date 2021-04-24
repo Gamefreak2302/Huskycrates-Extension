@@ -99,7 +99,7 @@ The purpose of this plugin is to add certain features i would have liked to see 
    * What crate can not be tested
    * Item command storage + edits
 
-### Interactable text  
+#### Interactable text  
 * When using /hce bal , on hover over text will print text to click to convert. on click will convert clicked key.  
 
 
