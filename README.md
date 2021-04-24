@@ -74,8 +74,8 @@ The purpose of this plugin is to add certain features i would have liked to see 
   Usage: hce bal (\<Player\>)  
   Description: Show the balance of player's keys  
   Permissions:  
-- huskycrates.bal.base (to see own balance ) 
-- huskycratesextension.admin.checkbalanceothers (to see other players balances (can be used when the player offline))
+* huskycrates.bal.base (to see own balance)  
+* huskycratesextension.admin.checkbalanceothers (to see other players balances (can be used when the player offline))
 
 
 ### Others:
@@ -92,7 +92,6 @@ The purpose of this plugin is to add certain features i would have liked to see 
   Description: Makes huskycrates keys and item commands unplaceable 
 
 #### Customizable configs
-   * Customize most messages (remove)/change) 
    * Customize memory game  
       * How many chances  
       * Multiple prizes  
@@ -105,13 +104,16 @@ The purpose of this plugin is to add certain features i would have liked to see 
 
 
 ## Notes
-  * Beginner in writing plugins, so can't tell how good it is for server performance  
+  * "Beginner" in writing plugins, so can't tell how good it is for server performance  
   * Only 1 author: Gamefreak_2302 
   * Contact me in the [huskycrates discord](https://discord.gg/MUXdDmHQ4a)  
   * following mods required: 
     * [Huskycrates (2.0.0RC2-2.0.0RC3 tested)](https://ore.spongepowered.org/codeHusky/HuskyCrates) 
     * [HuskyUI 0.6.0PRE4](https://ore.spongepowered.org/codeHusky/HuskyUI)
-  * This plugin is FREE , you can use it as much as you like and share it with anyone.
+  * This plugin is FREE , you can use it as much as you like and share it with anyone (without asking money for it).
   * Don't claim this plugin to be yours, copyright is a nasty law 
   * Feeling into donating? donate to [huskycrates](https://ore.spongepowered.org/codeHusky/HuskyCrates) , it's their plugin that makes this possible.
+  * The memory game does not save yet, on close = key loss and chance loss  
+  * Code does contain a lootbox class, which is not accessable (has bugg )  
+  * 
   
