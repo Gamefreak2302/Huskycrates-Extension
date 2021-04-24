@@ -70,7 +70,7 @@ The purpose of this plugin is to add certain features i would have liked to see 
   Description: takes a random reward and executes it.  
   Permission: huskycratesextension.admin.random  
   
-### bal
+#### bal
   Usage: hce bal (\<Player\>)  
   Description: Show the balance of player's keys  
   Permissions:  
