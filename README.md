@@ -41,7 +41,7 @@ The purpose of this plugin is to add certain features i would have liked to see 
   
 #### addreward
   Usage: hce addreward \<Crate ID\> \<Reward type\> (\<Data\>)  
-  Description: add reward to given crate of given type and data  
+  Description: add reward to given crate of given type and data with display item of the item in your main hand  
   Permission: huskycratesextension.admin.addreward  
 
 #### memory
