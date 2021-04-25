@@ -115,6 +115,6 @@ The purpose of this plugin is to add certain features i would have liked to see 
   * Feeling into donating? donate to [huskycrates](https://ore.spongepowered.org/codeHusky/HuskyCrates) , it's their plugin that makes this possible.
   * The memory game does not save yet, on close = key loss and chance loss  
   * Code does contain a lootbox class, which is not accessable (has bugg )
-  * Command items use %p as player placeholder and will be executed from console 
+  * Command items use %p as player placeholder, doesn't use "/" in front and will be executed as if it came from console.
 
   
