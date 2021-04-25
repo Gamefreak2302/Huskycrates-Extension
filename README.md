@@ -114,6 +114,7 @@ The purpose of this plugin is to add certain features i would have liked to see 
   * Don't claim this plugin to be yours, copyright is a nasty law 
   * Feeling into donating? donate to [huskycrates](https://ore.spongepowered.org/codeHusky/HuskyCrates) , it's their plugin that makes this possible.
   * The memory game does not save yet, on close = key loss and chance loss  
-  * Code does contain a lootbox class, which is not accessable (has bugg )  
+  * Code does contain a lootbox class, which is not accessable (has bugg )
+  * Command items use %p as player placeholder and will be executed from console 
 
   
