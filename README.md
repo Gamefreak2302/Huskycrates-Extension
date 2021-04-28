@@ -102,6 +102,11 @@ The purpose of this plugin is to add certain features i would have liked to see 
 #### Interactable text  
 * When using /hce bal , on hover over text will print text to click to convert. on click will convert clicked key.  
 
+#### Current plans
+* Make customizable messages
+* Add option to make command items unstackable
+* Add option to make command items virtual ( numbers, database file + external database) 
+* Treasure hunt? ( will try, won't guarantee )  
 
 ## Notes
   * "Beginner" in writing plugins, so can't tell how good it is for server performance  
